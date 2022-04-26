@@ -30,6 +30,10 @@ options:
     type: str
     choices: ["present", "absent", "pause"]
     default: present
+  baseurl:
+    description: The url of the healthchecks.io API to use
+    type: str
+    default: "https://healthchecks.io/api/v1"
   name:
     description:
       - Name for the new check.
@@ -196,6 +200,7 @@ def main():
         state=dict(
             type="str", choices=["present", "absent", "pause"], default="present"
         ),
+        baseurl=dict(type="str", required=False, default="https://healthchecks.io/api/v1"),
         name=dict(type="str", required=False, default=""),
         tags=dict(type="list", elements="str", required=False, default=[]),
         desc=dict(type="str", required=False, default=""),

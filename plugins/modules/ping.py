@@ -23,6 +23,10 @@ options:
     type: str
     choices: ["present"]
     default: present
+  ping_baseurl:
+    description: The base url to use for ping requests
+    type: str
+    default: "https://hc-ping.com"
   uuid:
     description:
       - Check uuid to delete when state is C(absent) or C(pause).
@@ -86,6 +90,7 @@ def main():
     argument_spec = HealthchecksioHelper.healthchecksio_argument_spec()
     argument_spec.update(
         state=dict(type="str", choices=["present"], default="present"),
+        ping_baseurl=dict(type="str", required=False, default="https://hc-ping.com"),
         uuid=dict(type="str", required=True),
         signal=dict(
             type="str",

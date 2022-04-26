@@ -25,6 +25,10 @@ options:
     type: str
     choices: ["present"]
     default: present
+  baseurl:
+    description: The url of the healthchecks.io API to use
+    type: str
+    default: "https://healthchecks.io/api/v1"
   uuid:
     description:
       - If specified, returns this specific check.
@@ -69,6 +73,7 @@ def main():
     argument_spec = HealthchecksioHelper.healthchecksio_argument_spec()
     argument_spec.update(
         state=dict(type="str", choices=["present"], default="present"),
+        baseurl=dict(type="str", required=False, default="https://healthchecks.io/api/v1"),
         uuid=dict(type="str", required=False),
     )
     module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)

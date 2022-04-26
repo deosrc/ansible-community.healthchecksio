@@ -23,6 +23,10 @@ options:
     type: str
     choices: ["present"]
     default: present
+  baseurl:
+    description: The url of the healthchecks.io API to use
+    type: str
+    default: "https://healthchecks.io/api/v1"
   tags:
     description:
       - Filters the checks and returns only the checks that are tagged with the specified value.
@@ -63,6 +67,7 @@ def main():
     argument_spec = HealthchecksioHelper.healthchecksio_argument_spec()
     argument_spec.update(
         state=dict(type="str", choices=["present"], default="present"),
+        baseurl=dict(type="str", required=False, default="https://healthchecks.io/api/v1"),
         tags=dict(type="list", elements="str", required=False),
         uuid=dict(type="str", required=False),
     )

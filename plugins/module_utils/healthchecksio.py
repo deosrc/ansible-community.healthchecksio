@@ -42,7 +42,8 @@ class Response(object):
 class HealthchecksioHelper:
     def __init__(self, module):
         self.module = module
-        self.baseurl = "https://healthchecks.io/api/v1"
+        self.baseurl = module.params.get("baseurl", "https://healthchecks.io/api/v1")
+        self.ping_baseurl = module.params.get("ping_baseurl", "https://hc-ping.com")
         self.timeout = module.params.get("timeout", 30)
         self.api_token = module.params.get("api_token")
         self.headers = {"X-Api-Key": self.api_token}
@@ -90,7 +91,7 @@ class HealthchecksioHelper:
     def head(self, path, data=None):
         resp, info = fetch_url(
             self.module,
-            "https://hc-ping.com/{0}".format(path),
+            "{0}/{1}".format(self.ping_baseurl, path),
             data=data,
             headers=self.headers,
             method="HEAD",
